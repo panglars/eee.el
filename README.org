@@ -32,6 +32,13 @@ ee.el Support:
                  :files (:defaults "*.el" "*.sh")))
 #+end_src
 
+*** Doom Emacs
+#+begin_src elisp
+(package! eee
+  :recipe (:host github :repo "eval-exec/eee.el"
+           :files (:defaults "*.el" "*.sh")))
+#+end_src
+
 *** Local
 #+begin_src elisp
 (use-package eee
