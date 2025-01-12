@@ -7,7 +7,8 @@ CURR_DIR=$(dirname $(readlink -f $0))
 # Switch between Ripgrep mode and fzf filtering mode (CTRL-T)
 rm -f /tmp/rg-fzf-{r,f}
 RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case "
-INITIAL_QUERY="${*:-}"
+# INITIAL_QUERY="${*:-}"
+INITIAL_QUERY="$1"
 fzf --ansi --disabled --query "$INITIAL_QUERY" \
 	--border \
 	--bind "start:reload:$RG_PREFIX {q}" \

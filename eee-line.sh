@@ -8,7 +8,7 @@ QUERY_FILE="$1"
 RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case "
 
 # INITIAL_QUERY="${*:-}"
-INITIAL_QUERY=""
+INITIAL_QUERY="$2"
 
 fzf --ansi --disabled --query "$INITIAL_QUERY" \
 	--border \
