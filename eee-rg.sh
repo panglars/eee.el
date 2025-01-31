@@ -3,16 +3,17 @@ set -e
 
 CURR_DIR=$(dirname $(readlink -f $0))
 . ${CURR_DIR}/eee-common.sh
+EE_REGEX=${CURR_DIR}/eee-rich-regex.sh
 
 # Switch between Ripgrep mode and fzf filtering mode (CTRL-T)
 rm -f /tmp/rg-fzf-{r,f}
-RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case "
+RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case --follow "
 # INITIAL_QUERY="${*:-}"
 INITIAL_QUERY="$1"
 fzf --ansi --disabled --query "$INITIAL_QUERY" \
 	--border \
 	--bind "start:reload:$RG_PREFIX {q}" \
-	--bind "change:reload:sleep 0.01; $RG_PREFIX {q} || true" \
+	--bind "change:reload:sleep 0.01;( eval ${EE_REGEX} {q} | xargs -IXX $RG_PREFIX XX ) || true " \
 	--bind "${FZF_BINDS}" \
 	--bind 'ctrl-t:transform: [[ ! $FZF_PROMPT =~ ripgrep ]] &&
       echo "rebind(change)+change-prompt(1. ripgrep> )+disable-search+transform-query:echo \{q} > /tmp/rg-fzf-f; cat /tmp/rg-fzf-r" ||

@@ -273,4 +273,15 @@ CALLBACK is an optional callback to be called after the script runs."
   nil
   ignore
   )
+
+(defvar ee-keymap (make-sparse-keymap)
+  "Keymap for ee-* commands.")
+(define-key ee-keymap (kbd "f") 'ee-find)
+(define-key ee-keymap (kbd "g") 'ee-lazygit)
+(define-key ee-keymap (kbd "y") 'ee-yazi)
+(define-key ee-keymap (kbd "Y") 'ee-yazi-project)
+(define-key ee-keymap (kbd "r") 'ee-rg)
+(define-key ee-keymap (kbd "l") 'ee-line)
+
+
 (provide 'eee)
