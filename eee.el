@@ -224,7 +224,7 @@ CALLBACK is an optional callback to be called after the script runs."
 
 (ee-define "ee-lazygit" default-directory (ee-script-path "eee-lazygit.sh") nil ignore)
 
-(ee-define "ee-rg" default-directory (ee-script-path "eee-rg.sh") (list (ee-region-text) ) ee-jump-from)
+(ee-define "ee-rg" (ee-get-project-dir-or-current-dir) (ee-script-path "eee-rg.sh") (list (ee-region-text)) ee-jump-from)
 
 (ee-define "ee-rga" default-directory (ee-script-path "eee-rga.sh")
   (list
