@@ -9,6 +9,8 @@ FZF_DEFAULT_COMMAND='fd --type f --type l --hidden --exclude .git --exclude targ
 	fzf \
     --query "$INITIAL_QUERY" \
 	--border \
+	--exact \
+	--cycle \
 	--color "border:#A15ABD" \
 	--header-first \
 	--header "CWD:$(pwd)

@@ -11,6 +11,8 @@ RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case --
 # INITIAL_QUERY="${*:-}"
 INITIAL_QUERY="$1"
 fzf --ansi --disabled --query "$INITIAL_QUERY" \
+	--exact \
+	--cycle \
 	--border \
 	--bind "start:reload:$RG_PREFIX {q}" \
 	--bind "change:reload:sleep 0.01;( eval ${EE_REGEX} {q} | xargs -IXX $RG_PREFIX XX ) || true " \

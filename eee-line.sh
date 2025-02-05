@@ -11,6 +11,8 @@ RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case "
 INITIAL_QUERY="$2"
 
 fzf --ansi --disabled --query "$INITIAL_QUERY" \
+	--exact \
+	--cycle \
 	--border \
 	--bind "start:reload:$RG_PREFIX {q} '${QUERY_FILE}'" \
 	--bind "change:reload:sleep 0.01; $RG_PREFIX {q} '${QUERY_FILE}' || true" \
