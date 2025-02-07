@@ -5,11 +5,12 @@ CURR_DIR=$(dirname $(readlink -f $0))
 
 INITIAL_QUERY="$1"
 
-FZF_DEFAULT_COMMAND='fd --type f --type l --hidden --exclude .git --exclude target' \
+FZF_DEFAULT_COMMAND='fd --type f --type l --hidden --exclude .git --exclude target | devicon-lookup -i -c' \
 	fzf \
     --query "$INITIAL_QUERY" \
 	--border \
 	--exact \
+	--ansi \
 	--cycle \
 	--color "border:#A15ABD" \
 	--header-first \
@@ -18,11 +19,12 @@ FZF_DEFAULT_COMMAND='fd --type f --type l --hidden --exclude .git --exclude targ
 TOOD: extended help information
 ${HEADER_KEYBIND_HELP}
 " \
-	--preview 'bat -n --color=always {}' \
+	--preview 'filename={}; bat -n --color=always ${filename:2}' \
 	--preview-window 'right,60%,border-bottom,wrap,+{2}+3/3,~3' \
 	--bind "${FZF_BINDS}" \
 	--bind 'ctrl-/:change-preview-window(down|hidden|)' \
 	--bind 'ctrl-d:change-prompt(Directories> )+reload(find * -type d)' \
 	--bind 'ctrl-f:change-prompt(Files> )+reload(find * -type f)' \
 	--bind 'ctrl-u:change-prompt(Directories> )+reload(find $(dirname $(pwd)) -type d)' |
-	xargs -0 -I{} echo $(pwd)/{}
+	xargs -0 -I{} bash -c 'filename_with_icon="{}"; filename="${filename_with_icon:2}"; echo "${filename}"' \
+		| xargs -0 -I{} realpath {}

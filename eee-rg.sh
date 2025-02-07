@@ -7,7 +7,7 @@ EE_REGEX=${CURR_DIR}/eee-rich-regex.sh
 
 # Switch between Ripgrep mode and fzf filtering mode (CTRL-T)
 rm -f /tmp/rg-fzf-{r,f}
-RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case --follow "
+RG_PREFIX="rg --column --line-number --hidden --no-heading --color=always --smart-case --follow "
 # INITIAL_QUERY="${*:-}"
 INITIAL_QUERY="$1"
 QUERY_PATH="${2:-.}"
