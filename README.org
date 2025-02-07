@@ -18,7 +18,7 @@ ee.el Support:
 
 ** Note
 
-=ee-find= need =devicon-lookup= to display file icons.
+=ee-find= need =devicon-lookup= (https://github.com/coreyja/devicon-lookup) to display file icons.
 We should install =devicon-lookup= executable by:
 
 =cargo install devicon-lookup --force=
