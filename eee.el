@@ -266,6 +266,11 @@ CALLBACK is an optional callback to be called after the script runs."
 ;;;###autoload
 (ee-define "ee-yazi" default-directory (ee-script-path "eee-yazi.sh") (list buffer-file-name) ee-jump-from)
 
+;; Eval Exec enhanced bones;
+
+;;;###autoload
+(ee-define "ee-bones" (ee-get-project-dir-or-current-dir) (ee-script-path "eee-bones.sh") nil ee-jump-from)
+
 ;;;###autoload
 (ee-define "ee-yazi-project"
   (ee-get-project-dir-or-current-dir)
