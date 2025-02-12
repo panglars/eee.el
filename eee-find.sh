@@ -9,6 +9,7 @@ FZF_DEFAULT_COMMAND='fd --type f --type l --hidden --exclude .git --exclude targ
 	fzf \
     --query "$INITIAL_QUERY" \
 	--border \
+    --layout reverse \
 	--exact \
 	--ansi \
 	--cycle \
