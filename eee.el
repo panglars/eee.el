@@ -277,7 +277,7 @@ CALLBACK is an optional callback to be called after the script runs."
   )
 
 (ee-define "ee-project-switch" default-directory
-  "fd --color=always --type dir --exact-depth 3 \"\"  ~/Projects | fzf --ansi --exact --style full --layout reverse"
+  "fd --color=always --type dir --exact-depth 3 \"\"  ~/Projects | fzf --ansi --exact --style full --layout reverse --preview \"eza --tree -L 3 --color always --icons always {}\" "
   nil ee-jump-from)
 
 (defvar ee-keymap (make-sparse-keymap)
