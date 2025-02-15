@@ -211,9 +211,11 @@ CALLBACK is an optional callback to be called after the script runs."
 
 (defun ee-region-text()
   (when (use-region-p)
+    (prog1
     (buffer-substring-no-properties
 	  (region-beginning)
-	  (region-end))))
+	  (region-end))
+    (deactivate-mark))))
 
 
 ;;;;;; define ee commands here: ee-rg, ee-line, ee-yazi, etc. ;;;;;;;;;;;
