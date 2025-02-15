@@ -17,6 +17,7 @@ fzf --ansi --disabled --query "$INITIAL_QUERY" \
 	--border \
 	--bind "start:reload:$RG_PREFIX {q} ${QUERY_PATH}" \
 	--bind "change:reload:sleep 0.01;( eval ${EE_REGEX} {q} | xargs -IXX $RG_PREFIX XX ${QUERY_PATH}) || true " \
+    --bind 'ctrl-f:page-down,ctrl-b:page-up' \
 	--bind "${FZF_BINDS}" \
 	--bind 'ctrl-t:transform: [[ ! $FZF_PROMPT =~ ripgrep ]] &&
       echo "rebind(change)+change-prompt(1. ripgrep> )+disable-search+transform-query:echo \{q} > /tmp/rg-fzf-f; cat /tmp/rg-fzf-r" ||

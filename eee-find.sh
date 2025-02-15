@@ -25,7 +25,9 @@ ${HEADER_KEYBIND_HELP}
 	--bind "${FZF_BINDS}" \
 	--bind 'ctrl-/:change-preview-window(down|hidden|)' \
 	--bind 'ctrl-d:change-prompt(Directories> )+reload(find * -type d)' \
-	--bind 'ctrl-f:change-prompt(Files> )+reload(find * -type f)' \
+    --bind 'ctrl-f:page-down,ctrl-b:page-up' \
 	--bind 'ctrl-u:change-prompt(Directories> )+reload(find $(dirname $(pwd)) -type d)' |
 	xargs -0 -I{} bash -c 'filename_with_icon="{}"; filename="${filename_with_icon:2}"; echo "${filename}"' \
 		| xargs -0 -I{} realpath {}
+
+# --bind 'ctrl-f:change-prompt(Files> )+reload(find * -type f)' \
