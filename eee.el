@@ -213,10 +213,10 @@ CALLBACK is an optional callback to be called after the script runs."
 (defun ee-region-text()
   (when (use-region-p)
     (prog1
-    (buffer-substring-no-properties
-	  (region-beginning)
-	  (region-end))
-    (deactivate-mark))))
+      (buffer-substring-no-properties
+	    (region-beginning)
+	    (region-end))
+      (deactivate-mark))))
 
 
 ;;;;;; define ee commands here: ee-rg, ee-line, ee-yazi, etc. ;;;;;;;;;;;
@@ -279,6 +279,22 @@ CALLBACK is an optional callback to be called after the script runs."
   ignore
   )
 
+(defun ee-recentf-dump ()
+  (interactive)
+  (let ((result (string-join recentf-list "\n")))
+    (f-write-text result 'utf-8 "/tmp/ee-recentf-list.txt")
+    ))
+
+(ee-define "ee-recentf"
+  (progn
+    (ee-recentf-dump)
+    (ee-get-project-dir-or-current-dir)
+    )
+  (ee-script-path "eee-recentf.sh")
+  nil
+  ee-jump-from
+  )
+
 (ee-define "ee-project-switch" default-directory
   "fd --color=always --type dir --exact-depth 3 \"\"  ~/Projects | fzf --ansi --exact --style full --layout reverse --preview \"eza --tree -L 3 --color always --icons always {}\" "
   nil ee-jump-from)
@@ -294,3 +310,4 @@ CALLBACK is an optional callback to be called after the script runs."
 
 
 (provide 'eee)
+
