@@ -24,7 +24,7 @@
 	   "--option=window.decorations=\\\"None\\\" --option=window.dimensions.columns=180 --option=window.dimensions.lines=50")
 	 ("kitty" . "--title ee-kitty")
 	 ("konsole" . "--hide-menubar")
-         ("ghostty" . "--title=ee-ghostty")
+     ("ghostty" . "--title=ee-ghostty")
 	 )
   "The terminal command options to use for ee-* commands."
   :type 'alist
@@ -137,18 +137,21 @@ DESTINATION can be:
 			  (string-to-number (match-string 1 (nth 1 components)))))
 
           (column (if (and (length> components 2) (ee-integer-p (nth 2 components)))
-					(string-to-number (nth 2 components)) nil)))
-	(when (and (not (string-empty-p file)) (file-exists-p file))
-	  (message "ee-jump got destination %s" destination)
-	  (message "ee-jump jumping to: file:%s, [line:%s/page:%s], column:%s" file line pdf-page-num column)
+                    (string-to-number (nth 2 components)) nil)))
+    (when (and (not (string-empty-p file)) (file-exists-p file))
+      (message "ee-jump got destination %s" destination)
+      (message "ee-jump jumping to: file:%s, [line:%s/page:%s], column:%s" file line pdf-page-num column)
       (find-file file)
       (when line
-		(goto-line line)
-		(when column
+        (goto-line line)
+        (when column
           (move-to-column column)
-		  (recenter)))
-	  (when pdf-page-num
-		(pdf-view-goto-page pdf-page-num)))))
+          (recenter)))
+      (when pdf-page-num
+        (pdf-view-goto-page pdf-page-num))
+      (jit-lock-fontify-now)
+      ))
+  )
 
 ;; destination-file is a temporary file, it's content is the desitination we want to jump 
 (defun ee-jump-from(destination-file)
