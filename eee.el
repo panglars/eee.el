@@ -198,6 +198,8 @@ DESTINATION can be:
 	  full-command
 	  process-callback)))
 
+
+;;;###autoload
 (defmacro ee-define (name working-directory script-path &optional args callback)
   "Define a command with NAME to run a script with EE-RUN.
 WORKING-DIRECTORY determines the directory to run the script from.
@@ -225,15 +227,20 @@ CALLBACK is an optional callback to be called after the script runs."
 ;;;;;; define ee commands here: ee-rg, ee-line, ee-yazi, etc. ;;;;;;;;;;;
 
 ;; Define your commands using the macro
+;;;###autoload
 (ee-define "ee-line" default-directory (ee-script-path "eee-line.sh")
   (list buffer-file-name (ee-region-text)) ee-jump-from)
 
+;;;###autoload
 (ee-define "ee-find" (ee-get-project-dir-or-current-dir) (ee-script-path "eee-find.sh") (list (ee-region-text)) ee-jump-from)
 
+;;;###autoload
 (ee-define "ee-lazygit" default-directory (ee-script-path "eee-lazygit.sh") nil ignore)
 
+;;;###autoload
 (ee-define "ee-rg" (ee-get-project-dir-or-current-dir) (ee-script-path "eee-rg.sh") (list (ee-region-text)) ee-jump-from)
 
+;;;###autoload
 (ee-define "ee-rga" default-directory (ee-script-path "eee-rga.sh")
   (list
 	(expand-file-name
@@ -242,19 +249,24 @@ CALLBACK is an optional callback to be called after the script runs."
 	)
   ee-jump-from)
 
+;;;###autoload
 (ee-define "ee-lf" default-directory (ee-script-path "eee-lf.sh") nil ee-jump-from)
 
+;;;###autoload
 (ee-define "ee-lf-project" (ee-get-project-dir-or-current-dir) (ee-script-path "eee-lf.sh") nil ee-jump-from)
 
 ;; ";" is important commmand should be "htop;" since, ee-run will redirect stdout to ee-process-output-file
 ;; if command is "htop", ee-run will redirect htop's stdout to ee-process-output-file,
 ;; then you will see nothing in launched teriminal
+;;;###autoload
 (ee-define "ee-htop" default-directory "htop;" nil ignore)
 (ee-define "ee-btop" default-directory "btop;" nil ignore)
 
 ;; Commands with optional arguments
+;;;###autoload
 (ee-define "ee-yazi" default-directory (ee-script-path "eee-yazi.sh") (list buffer-file-name) ee-jump-from)
 
+;;;###autoload
 (ee-define "ee-yazi-project"
   (ee-get-project-dir-or-current-dir)
   (ee-script-path "eee-yazi.sh")
@@ -269,12 +281,15 @@ CALLBACK is an optional callback to be called after the script runs."
   ee-jump-from)
 
 ;; use delta to show git diff
+;;;###autoload
 (ee-define "ee-delta"
   (ee-get-project-dir-or-current-dir)
   "git -c core.diff=delta -c delta.pager=less -c delta.paging=always diff ; echo fjeio "
   nil
   ignore
   )
+
+;;;###autoload
 (ee-define "ee-spotify-player"
   default-directory
   "spotify_player;"
@@ -288,6 +303,8 @@ CALLBACK is an optional callback to be called after the script runs."
     (f-write-text result 'utf-8 "/tmp/ee-recentf-list.txt")
     ))
 
+
+;;;###autoload
 (ee-define "ee-recentf"
   (progn
     (ee-recentf-dump)
@@ -298,6 +315,7 @@ CALLBACK is an optional callback to be called after the script runs."
   ee-jump-from
   )
 
+;;;###autoload
 (ee-define "ee-project-switch" default-directory
   "fd --color=always --type dir --exact-depth 3 \"\"  ~/Projects | fzf --ansi --exact --style full --layout reverse --preview \"eza --tree -L 3 --color always --icons always {}\" "
   nil ee-jump-from)
