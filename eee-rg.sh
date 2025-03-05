@@ -41,7 +41,7 @@ fzf --ansi --disabled --query "$INITIAL_QUERY" \
     --color "hl:-1:underline,hl+:-1:underline:reverse,border:#A15ABD" \
     --delimiter : \
     --preview 'bat --color=always {1} --highlight-line {2}' \
-    --preview-window 'up,60%,border-line,+{2}+3/3,~3' \
+    --preview-window 'up,70%,border-line,+{2}+3/3,~3' \
     --bind 'ctrl-f:page-down,ctrl-b:page-up' |
     xargs -0 -I{} echo $(pwd)/{}
 
