@@ -26,10 +26,6 @@ TRANSFORMER='
   echo "+search:$fzf_pat"
 '
 
-
-echo ${QUERY_PATH}
-echo ${TRANSFORMER}
-
 fzf --ansi --disabled --query "$INITIAL_QUERY" \
     --delimiter : --nth 3.. \
     --reverse \
