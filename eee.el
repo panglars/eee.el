@@ -149,7 +149,8 @@ DESTINATION can be:
           (recenter)))
       (when pdf-page-num
         (pdf-view-goto-page pdf-page-num))
-      (jit-lock-fontify-now)
+      (ignore-errors
+        (jit-lock-fontify-now))
       ))
   )
 
