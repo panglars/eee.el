@@ -15,11 +15,7 @@ fd --type f --type l --hidden --exclude .git --exclude target | devicon-lookup -
   --cycle \
   --color "border:#A15ABD" \
   --header-first \
-  --header "CWD:$(pwd)
-  [Alt-C]:Change Dir(TODO); [RET]: select;
-  TOOD: extended help information
-  ${HEADER_KEYBIND_HELP}
-  " \
+  --header "CWD:$(pwd) " \
     --preview 'filename={}; bat -n --color=always ${filename:2}' \
     --preview-window 'right,60%,border-bottom,wrap,+{2}+3/3,~3' \
     --bind "${FZF_BINDS}" \
