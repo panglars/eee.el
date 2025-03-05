@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 bones $1 | fzf --ansi --exact --cycle \
-	--delimiter : \
+  --delimiter : --nth '3..' \
   --reverse \
 	--border \
 	--color "border:#A15ABD" \

@@ -24,7 +24,7 @@ fzf --ansi --disabled --query "$INITIAL_QUERY" \
       echo "unbind(change)+change-prompt(2. fzf> )+enable-search+transform-query:echo \{q} > /tmp/rg-fzf-r; cat /tmp/rg-fzf-f"' \
 	--color "hl:-1:underline,hl+:-1:underline:reverse,border:#A15ABD" \
 	--prompt '1. ripgrep> ' \
-	--delimiter : \
+  --delimiter : --nth '3..' \
 	--header-first \
 	--header " CWD:$(pwd)
 [Ctrl-t]: Switch between ripgrep/fzf
