@@ -22,10 +22,10 @@
 	  "--config enable_wayland=false --config enable_tab_bar=false --config initial_cols=180 --config initial_rows=50 --config window_decorations=\\\"NONE\\\"")
 	 ("alacritty" .
 	   "--option=window.decorations=\\\"None\\\" --option=window.dimensions.columns=180 --option=window.dimensions.lines=50")
-	 ("kitty" . "--title ee-kitty")
-	 ("konsole" . "--hide-menubar")
+     ("kitty" . "--title ee-kitty")
+     ("konsole" . "--hide-menubar")
      ("ghostty" . "--title=ee-ghostty")
-	 )
+     )
   "The terminal command options to use for ee-* commands."
   :type 'alist
   :group 'eee)
@@ -44,8 +44,8 @@
 
 (defun ee-get-terminal-options()
   (alist-get
-	ee-terminal-command
-	ee-terminal-options "" nil 'equal))
+    ee-terminal-command
+    ee-terminal-options "" nil 'equal))
 
 (defvar eee--load-file-path nil)
 (setq eee--load-file-path (or load-file-name buffer-file-name))
@@ -53,8 +53,8 @@
 (defun ee-script-path(script-name)
   ;; script-name is in same dir with current eee.el script
   (expand-file-name
-	script-name
-	(file-name-directory (expand-file-name eee--load-file-path))))
+    script-name
+    (file-name-directory (expand-file-name eee--load-file-path))))
 
 (defun ee-start-external-terminal (name command callback)
   "Start a process running COMMAND in an external terminal.
@@ -62,18 +62,18 @@ The terminal emulator is specified in `ee-terminal-command'.
 See `ee-start-terminal-function' for the usage.
 "
   (let* ((options (ee-get-terminal-options))
-	      (full-command (format "%s %s -e bash -c '%s'"
-			              ee-terminal-command
-			              options
-						  command))
-	      (proc (progn
-				  (ee-message "ee-executing:\n%s" full-command)
-				  (start-process-shell-command name nil full-command) )))
+          (full-command (format "%s %s -e bash -c '%s'"
+                          ee-terminal-command
+                          options
+                          command))
+          (proc (progn
+                  (ee-message "ee-executing:\n%s" full-command)
+                  (start-process-shell-command name nil full-command) )))
     (set-process-sentinel
       proc
       (lambda (p _m)
-		(unless (process-live-p p)
-	      (funcall callback p))))
+        (unless (process-live-p p)
+          (funcall callback p))))
     proc))
 
 (defcustom ee-start-terminal-function #'ee-start-external-terminal
