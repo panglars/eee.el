@@ -1,9 +1,9 @@
 ;;; package --- Summary -*- lexical-binding: t -*-
 ;; eee.el is the meaning of Eval! Exec! Enhance!
-;; 
+;;
 ;; Author Github: https://github.com/eval-exec
 ;; Author Blog:   https://evex.one
-;; 
+;;
 ;; Eval! Exec! Enhance!
 ;; Eval! Exec! Excited!
 ;; Eval! Exec! Enjoy!
@@ -19,9 +19,9 @@
 
 (defcustom ee-terminal-options
   '(("wezterm" .
-	  "--config enable_wayland=false --config enable_tab_bar=false --config initial_cols=180 --config initial_rows=50 --config window_decorations=\\\"NONE\\\"")
-	 ("alacritty" .
-	   "--option=window.decorations=\\\"None\\\" --option=window.dimensions.columns=180 --option=window.dimensions.lines=50")
+      "--config enable_wayland=false --config enable_tab_bar=false --config initial_cols=180 --config initial_rows=50 --config window_decorations=\\\"NONE\\\"")
+     ("alacritty" .
+       "--option=window.decorations=\\\"None\\\" --option=window.dimensions.columns=180 --option=window.dimensions.lines=50")
      ("kitty" . "--title ee-kitty")
      ("konsole" . "--hide-menubar")
      ("ghostty" . "--title=ee-ghostty")
@@ -80,8 +80,8 @@ See `ee-start-terminal-function' for the usage.
   "Function used to start the terminal.
 See `ee-start-external-terminal' for function signature."
   :type '(choice (const :tag "External terminal" ee-start-external-terminal)
-		   (const :tag "Eat" ee-eat-start-terminal)
-		   (function "Custom function")))
+           (const :tag "Eat" ee-eat-start-terminal)
+           (function "Custom function")))
 
 (defun ee-start-process-shell-command-in-terminal (name command callback)
   "Run COMMAND in a terminal.
@@ -104,7 +104,7 @@ NAME is passed to `ee-start-terminal-function'."
 
 (defun ee-get-project-dir-or-current-dir()
   (let ((project-dir-command
-		  (format  "git rev-parse --show-toplevel 2> /dev/null || echo -n %s"
+          (format  "git rev-parse --show-toplevel 2> /dev/null || echo -n %s"
             default-directory)))
     (ee--normalize-path (or (when-let (project (project-current))
                               (project-root project))
@@ -113,7 +113,7 @@ NAME is passed to `ee-start-terminal-function'."
 
 (defun ee-integer-p(str)
   (when str
-	(string-match-p "^[-+]?[0-9]+$" str)))
+    (string-match-p "^[-+]?[0-9]+$" str)))
 
 (defun ee-jump (destination)
   "Jump to DESTINATION, which can be a file path with optional line and column numbers.
@@ -127,14 +127,14 @@ DESTINATION can be:
   (let* ((components (split-string destination ":"))
           (file (car components))
           (line (if (and (length> components 1)
-					  (ee-integer-p (nth 1 components)))
-				  (string-to-number (nth 1 components)) nil))
-		  ;; pdf-page is the page number in pdf file, like: "Page 123", parse page number to pdf-page
-		  (pdf-page-num 
-			(when (and
-					(length> components 1)
-					(string-match "Page \\([0-9]+\\)" (nth 1 components)))
-			  (string-to-number (match-string 1 (nth 1 components)))))
+                      (ee-integer-p (nth 1 components)))
+                  (string-to-number (nth 1 components)) nil))
+          ;; pdf-page is the page number in pdf file, like: "Page 123", parse page number to pdf-page
+          (pdf-page-num
+            (when (and
+                    (length> components 1)
+                    (string-match "Page \\([0-9]+\\)" (nth 1 components)))
+              (string-to-number (match-string 1 (nth 1 components)))))
 
           (column (if (and (length> components 2) (ee-integer-p (nth 2 components)))
                     (string-to-number (nth 2 components)) nil)))
@@ -154,19 +154,19 @@ DESTINATION can be:
       ))
   )
 
-;; destination-file is a temporary file, it's content is the desitination we want to jump 
+;; destination-file is a temporary file, it's content is the desitination we want to jump
 (defun ee-jump-from(destination-file)
   (let* ((destination (shell-command-to-string
-						(format "cat %s" destination-file)))
-		  (destination (string-trim destination)))
-	(unless (string-empty-p destination)
+                        (format "cat %s" destination-file)))
+          (destination (string-trim destination)))
+    (unless (string-empty-p destination)
       (ee-jump destination))))
 
 (defun ee-join-args(args)
   (string-join
-	(mapcar (lambda(str)
-			  (if str (shell-quote-argument str) ""))
-	  args) " "))
+    (mapcar (lambda(str)
+              (if str (shell-quote-argument str) ""))
+      args) " "))
 
 (defun ee-run(name working-directory command &optional args callback)
   ;; name is the process name, it's needed by `start-process-shell-command's first argument
@@ -175,29 +175,29 @@ DESTINATION can be:
   ;; args: optional, should be list of string,  the arguments for the command. like: '("arg1" "arg2" "arg3")'
   ;; callback, optional, the callback function to call after the command is executed, it will accept ee-process-output-file as argument
   (let* ((working-directory
-		   (shell-quote-argument
-			 (expand-file-name  working-directory)))
-		  ;; pre-define ee-* commands' output file, callback function will read content from the file
-		  (ee-process-stdout-file (format "/tmp/ee-stdout-%s.tmp" name))
-		  ;; construct command and args to execute in terminal:
-		  (command-and-args
-			(format "%s %s" command
-			  (ee-join-args args)))
-		  ;; example:
-		  ;; cd [working-directory] && [command-and-args] > [/tmp/ee-output-ee-rg.tmp]
-		  (full-command (format "cd %s && %s > %s"
-						  working-directory
-						  command-and-args
-						  ee-process-stdout-file))
-		  (process-callback (if callback
-							  (lambda(process)
-								(funcall callback ee-process-stdout-file))
-							  #'ignore)))
-	(ee-message "%s: %s" name full-command)
-	(ee-start-process-shell-command-in-terminal
-	  name
-	  full-command
-	  process-callback)))
+           (shell-quote-argument
+             (expand-file-name  working-directory)))
+          ;; pre-define ee-* commands' output file, callback function will read content from the file
+          (ee-process-stdout-file (format "/tmp/ee-stdout-%s.tmp" name))
+          ;; construct command and args to execute in terminal:
+          (command-and-args
+            (format "%s %s" command
+              (ee-join-args args)))
+          ;; example:
+          ;; cd [working-directory] && [command-and-args] > [/tmp/ee-output-ee-rg.tmp]
+          (full-command (format "cd %s && %s > %s"
+                          working-directory
+                          command-and-args
+                          ee-process-stdout-file))
+          (process-callback (if callback
+                              (lambda(process)
+                                (funcall callback ee-process-stdout-file))
+                              #'ignore)))
+    (ee-message "%s: %s" name full-command)
+    (ee-start-process-shell-command-in-terminal
+      name
+      full-command
+      process-callback)))
 
 
 ;;;###autoload
@@ -220,8 +220,8 @@ CALLBACK is an optional callback to be called after the script runs."
   (when (use-region-p)
     (prog1
       (buffer-substring-no-properties
-	    (region-beginning)
-	    (region-end))
+        (region-beginning)
+        (region-end))
       (deactivate-mark))))
 
 
@@ -244,10 +244,10 @@ CALLBACK is an optional callback to be called after the script runs."
 ;;;###autoload
 (ee-define "ee-rga" default-directory (ee-script-path "eee-rga.sh")
   (list
-	(expand-file-name
-	  (or buffer-file-name default-directory))
-	(ee-region-text)
-	)
+    (expand-file-name
+      (or buffer-file-name default-directory))
+    (ee-region-text)
+    )
   ee-jump-from)
 
 ;;;###autoload
@@ -277,13 +277,13 @@ CALLBACK is an optional callback to be called after the script runs."
   (ee-get-project-dir-or-current-dir)
   (ee-script-path "eee-yazi.sh")
   (if
-	(and
-	  (equal
-		(ee--normalize-path default-directory)
-		(ee-get-project-dir-or-current-dir))
-	  buffer-file-name)
-	(list buffer-file-name)
-	(list (ee-get-project-dir-or-current-dir)))
+    (and
+      (equal
+        (ee--normalize-path default-directory)
+        (ee-get-project-dir-or-current-dir))
+      buffer-file-name)
+    (list buffer-file-name)
+    (list (ee-get-project-dir-or-current-dir)))
   ee-jump-from)
 
 ;; use delta to show git diff
@@ -337,4 +337,3 @@ CALLBACK is an optional callback to be called after the script runs."
 
 
 (provide 'eee)
-
