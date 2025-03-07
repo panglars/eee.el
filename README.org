@@ -20,8 +20,32 @@ ee.el Support:
 
 =ee-find= need =devicon-lookup= (https://github.com/coreyja/devicon-lookup) to display file icons.
 We should install =devicon-lookup= executable by:
+#+begin_src bash
+cargo install devicon-lookup --force
+#+end_src
 
-=cargo install devicon-lookup --force=
+*** Highly Recomment use st terminal since it startup very fast. 
+
+I tried st, alacritty, kitty, konsole, st is very fast, you can test the startup timecost by:
+
+#+begin_src
+% time st -e sh -c date
+st -e sh -c date  0.03s user 0.02s system 90% cpu 0.052 total
+~ on ☁️
+$ time alacritty -e sh -c date
+alacritty -e sh -c date  0.14s user 0.05s system 93% cpu 0.201 total
+~ on ☁️
+$ time kitty -e sh -c date
+kitty -e sh -c date  0.20s user 0.07s system 93% cpu 0.288 total
+~ on ☁️
+$ time konsole -e sh -c date
+konsole -e sh -c date  0.26s user 0.13s system 74% cpu 0.519 total
+
+#+end_src
+
+st startup only need 50ms, but alacritty need 200ms, konsole need 500ms.
+Please install st: https://st.suckless.org/ and patch it with https://st.suckless.org/patches/glyph_wide_support/
+
 
 ** Installation
 
