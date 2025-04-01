@@ -62,7 +62,7 @@ The terminal emulator is specified in `ee-terminal-command'.
 See `ee-start-terminal-function' for the usage.
 "
   (let* ((options (ee-get-terminal-options))
-          (full-command (format "%s %s -e bash -c '%s'"
+          (full-command (format "%s %s -e bash -c '%s || sleep 1'"
                           ee-terminal-command
                           options
                           command))
