@@ -4,10 +4,12 @@ set -Eeuo pipefail
 CURR_DIR=$(dirname $(readlink -f $0))
 . ${CURR_DIR}/eee-common.sh
 
-INITIAL_QUERY="$1"
+INITIAL_QUERY="${1:-}"
 
-fd --type f --type l --hidden --exclude .git --exclude target | devicon-lookup -i -c |
-  fzf \
+check_tools fd devicon-lookup fzf bat
+
+$FD --type f --type l --hidden --exclude .git --exclude target | $DEVICON_LOOKUP -i -c |
+  $FZF \
     --query "$INITIAL_QUERY" \
     --border \
     --layout reverse \
@@ -17,7 +19,7 @@ fd --type f --type l --hidden --exclude .git --exclude target | devicon-lookup -
     --color "border:#A15ABD" \
     --header-first \
     --header "CWD:$(pwd) " \
-    --preview 'filename={}; bat -n --color=always ${filename:2}' \
+    --preview 'filename={}; '"$BAT"' -n --color=always ${filename:2}' \
     --preview-window 'right,60%,border-bottom,wrap,+{2}+3/3,~3' \
     --bind "${FZF_BINDS}" \
     --bind 'ctrl-/:change-preview-window(down|hidden|)' \
