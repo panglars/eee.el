@@ -11,13 +11,8 @@ EEE_FIND_SCRIPT=${CURR_DIR}/eee-find.sh
 
 FZF_BINDS="\
 f1:become(${EEE_RG_SCRIPT}),\
-f2:become(${EEE_FIND_SCRIPT} {}),\
-f3:execute(${EEE_SYMBOL_SCRIPT} {})\
+f2:become(${EEE_FIND_SCRIPT} {})\
 "
-# FZF_F1_BIND="f1:become(${EEE_FIND_SCRIPT} {})"
-# FZF_F2_BIND="f2:become(${EEE_RG_SCRIPT} {})"
-
-logger -t eee.el -- EEE_F1_BIND=${FZF_F1_BIND}
 
 error() {
     echo "error: $*"
