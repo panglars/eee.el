@@ -62,6 +62,9 @@ The terminal emulator is specified in `ee-terminal-command'.
 See `ee-start-terminal-function' for the usage.
 "
   (let* ((options (ee-get-terminal-options))
+         ;; TODO: sleep 1 is a workaround,
+         ;; should caught the error message 
+         ;; and show it in Emacs's echo area
           (full-command (format "%s %s -e bash -c '%s || sleep 1'"
                           ee-terminal-command
                           options
