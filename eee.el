@@ -64,8 +64,9 @@ See `ee-start-terminal-function' for the usage.
   (let* ((options (ee-get-terminal-options))
          ;; TODO: sleep 1 is a workaround,
          ;; should caught the error message 
-         ;; and show it in Emacs's echo area
-          (full-command (format "%s %s -e bash -c '%s || sleep 1'"
+          ;; and show it in Emacs's echo area
+          ;; errno 130 is indicates that a command or process was terminated by the user
+          (full-command (format "%s %s -e bash -c '%s || { [ $? -ne 130 ] && sleep 1; }'"
                           ee-terminal-command
                           options
                           command))
