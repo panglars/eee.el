@@ -198,6 +198,7 @@ DESTINATION can be:
                                 (funcall callback ee-process-stdout-file))
                               #'ignore)))
     (ee-message "%s: %s" name full-command)
+    (discard-input)
     (ee-start-process-shell-command-in-terminal
       name
       full-command
