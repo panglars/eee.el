@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-bones $1 | fzf --ansi --exact --cycle \
+bones --align 50 $1 | fzf --ansi --exact --cycle \
                --delimiter : --nth '3..' \
                --reverse \
                --no-sort \

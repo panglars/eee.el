@@ -62,8 +62,8 @@ The terminal emulator is specified in `ee-terminal-command'.
 See `ee-start-terminal-function' for the usage.
 "
   (let* ((options (ee-get-terminal-options))
-         ;; TODO: sleep 1 is a workaround,
-         ;; should caught the error message 
+          ;; TODO: sleep 1 is a workaround,
+          ;; should caught the error message 
           ;; and show it in Emacs's echo area
           ;; errno 130 is indicates that a command or process was terminated by the user
           (full-command (format "%s %s -e bash -c '%s || { [ $? -ne 130 ] && sleep 1; }'"
@@ -144,7 +144,14 @@ DESTINATION can be:
                     (string-to-number (nth 2 components)) nil)))
     (when (and (not (string-empty-p file)) (file-exists-p file))
       (message "ee-jump got destination %s" destination)
-      (message "ee-jump jumping to: file:%s, [line:%s/page:%s], column:%s" file line pdf-page-num column)
+      (let ((parts (list (format "file:%s" file))))
+        (when line
+          (push (format "line:%s" line) parts))
+        (when pdf-page-num
+          (push (format "page:%s" pdf-page-num) parts))
+        (when column
+          (push (format "column:%s" column) parts))
+        (message "ee-jump jumping to: %s" (string-join (nreverse parts) ", ")))
       (find-file file)
       (when line
         (goto-line line)
