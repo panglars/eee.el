@@ -19,7 +19,7 @@ $FD --type f --type l --hidden --exclude .git --exclude target | $DEVICON_LOOKUP
     --color "border:#A15ABD" \
     --header-first \
     --header "CWD:$(pwd) " \
-    --preview 'filename={}; '"$BAT"' -n --color=always ${filename:2}' \
+    --preview 'filename={}; stat ${filename:2} && echo "" && '"$BAT"' -n --color=always ${filename:2}' \
     --preview-window 'right,60%,border-bottom,wrap,+{2}+3/3,~3' \
     --bind "${FZF_BINDS}" \
     --bind 'ctrl-/:change-preview-window(down|hidden|)' \
