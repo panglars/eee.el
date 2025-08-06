@@ -13,6 +13,7 @@ $FD --type f --type l --hidden --exclude .git --exclude target | $DEVICON_LOOKUP
     --query "$INITIAL_QUERY" \
     --border \
     --layout reverse \
+    --info=inline-right \
     --exact \
     --ansi \
     --cycle \

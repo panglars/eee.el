@@ -161,7 +161,7 @@ DESTINATION can be:
       (when pdf-page-num
         (pdf-view-goto-page pdf-page-num))
       (ignore-errors
-        (jit-lock-fontify-now))
+        (jit-lock-fontify-now (window-start) (window-end)))
       ))
   )
 
