@@ -24,7 +24,7 @@
        "--option=window.decorations=\\\"None\\\" --option=window.dimensions.columns=180 --option=window.dimensions.lines=50")
      ("kitty" . "--title ee-kitty")
      ("konsole" . "--hide-menubar")
-     ("ghostty" . "--title=ee-ghostty")
+     ("ghostty" . "--title=ee-ghostty --window-decoration=none")
      )
   "The terminal command options to use for ee-* commands."
   :type 'alist
